@@ -5,25 +5,25 @@ import ResultsComponent from './components/results/ResultsComponent'
 import ChartComponent from './components/ChartComponent';
 import * as api from './api/api'
 import { NotificationDetails, SearchResult, StockHistoryInformation } from './type';
-import { mapStockHistoryResponse } from './util/util';
+import { mapStockHistoryResponse, mapSearchStockResponse } from './util/util';
 
 function App() {
   const [stockSearchIndicator, setStockSearchIndicator] = React.useState(false)
   const [stockInfoLoadIndicator, setStockInfoLoadIndicator] = React.useState(false)
-  const [searchResults, setSearchResults] = React.useState([])
+  const [searchResults, setSearchResults] = React.useState([] as SearchResult[])
   const [stockInfo, setStockInfo] = React.useState({} as SearchResult)
   const [stockHistory, setStockHistory] = React.useState({} as StockHistoryInformation)
 
-  const selectStock = (symbol: string) => {
+  const selectStock = (symbol: string, interval: string) => {
     setStockInfoLoadIndicator(true)
     const selectedStock = searchResults.filter(result => {
-      return result['1. symbol'] === symbol
+      return result.symbol === symbol
     })[0]
     setStockInfo(selectedStock)
-    api.getStockInformation(symbol)
+    api.getStockInformation(symbol, interval)
     .then(getStockInformationResponse => {
-      const newHistory = mapStockHistoryResponse(getStockInformationResponse.data)
-      setStockHistory(newHistory)
+      const modifiedHistory = mapStockHistoryResponse(getStockInformationResponse.data)
+      setStockHistory(modifiedHistory)
       setStockInfoLoadIndicator(false)
     })
     .catch(() => {
@@ -44,7 +44,7 @@ function App() {
     setStockInfoLoadIndicator(false)
     api.searchStock(stock)
     .then(searchStockResponse => {
-      const matches = searchStockResponse.data.bestMatches
+      const matches = mapSearchStockResponse(searchStockResponse.data.bestMatches)
       if (matches.length > 0) {
         setSearchResults(matches)
       } else {
@@ -93,6 +93,7 @@ function App() {
             stockInfoLoadIndicator={stockInfoLoadIndicator}
             stockInformation={stockInfo}
             stockHistory={stockHistory}
+            selectStock={selectStock}
           />
         </Col>
       </Row>

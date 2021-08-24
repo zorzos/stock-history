@@ -29,3 +29,7 @@
 .ant-divider-vertical {
   height: auto !important;
 }
+
+.canvasjs-chart-credit {
+  display: none;
+}

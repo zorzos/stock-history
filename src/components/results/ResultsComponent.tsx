@@ -6,7 +6,7 @@ import ResultList from './ResultList'
 function ResultsComponent(props: {
     searchResults: SearchResult[],
     stockSearchIndicator: boolean,
-    selectStock: (symbol: string) => void
+    selectStock: (symbol: string, interval: string) => void
 }) {
     const { searchResults, stockSearchIndicator } = props
     return (

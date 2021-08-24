@@ -4,13 +4,13 @@ const { Panel } = Collapse
 
 function ResultList(props: {
     results: SearchResult[],
-    selectStock: (symbol: string) => void
+    selectStock: (symbol: string, interval: string) => void
 }) {
     const generateViewButton = (symbol: string) => {
         return (<Button
             type="primary"
             htmlType="submit"
-            onClick={() => props.selectStock(symbol)}
+            onClick={() => props.selectStock(symbol, "60min")}
         >
             View
         </Button>)
@@ -20,16 +20,17 @@ function ResultList(props: {
             <h3>Select a stock from the results below to view its history:</h3>
             <Collapse className="results-accordion" collapsible="header" accordion>
                 {props.results.map(result => {
+                    const resultSymbol = result.symbol
                     return (
                         <Panel
-                            header={result['1. symbol']}
-                            key={result['1. symbol']}
-                            extra={generateViewButton(result['1. symbol'])}
+                            header={resultSymbol}
+                            key={resultSymbol}
+                            extra={generateViewButton(resultSymbol)}
                         >
-                            Name: {result['2. name']}<br />
-                            Symbol: {result['1. symbol']}<br />
-                            Region: {result['4. region']}<br />
-                            Currency: {result['8. currency']}
+                            Name: {result.name}<br />
+                            Symbol: {resultSymbol}<br />
+                            Region: {result.region}<br />
+                            Currency: {result.currency}
                         </Panel>
                     )
                 })}
