@@ -1,7 +1,8 @@
 import { 
     StockInfoItemResponse,
     StockHistoryInformation,
-    SearchResult
+    SearchResult,
+    LinearChartPoint
 } from "../type"
 
 const mapSearchStockResponse = (response: any) => {
@@ -56,8 +57,8 @@ const mapStockHistoryResponse = (response: any) => {
     return historyInformation
 }
 
-const extractChartData = (stockHistory: StockInfoItemResponse[]) => {
-    let x, y = undefined
+const extractCandlestickChartData = (stockHistory: StockInfoItemResponse[]) => {
+    let x, y
     const points: any[] = []
     stockHistory && stockHistory.length > 0 && stockHistory.forEach((item: StockInfoItemResponse) => {
         x = item.date
@@ -68,8 +69,43 @@ const extractChartData = (stockHistory: StockInfoItemResponse[]) => {
     return points
 }
 
+const numberFormatter = (value: number) => {
+    if (value < 10) { return "0"+value }
+    return value
+}
+
+const extractLinearChartData = (stockHistory: StockInfoItemResponse[]) => {
+    let label, x, y
+    const points: LinearChartPoint[] = []
+    const tempPoints: any[] = []
+    stockHistory && stockHistory.length > 0 && stockHistory.forEach((item: StockInfoItemResponse) => {
+        if (item.date && item.high && item.low) {
+            const itemDate = new Date(item.date)
+            label = numberFormatter(itemDate.getHours()) + ":" +
+                    numberFormatter(itemDate.getMinutes()) + ":" +
+                    numberFormatter(itemDate.getSeconds())
+            x = itemDate
+            y = item.high - item.low
+            tempPoints.push({label, x, y})
+        }
+    })
+    tempPoints.sort((a, b) => a.x - b.x)
+    tempPoints.forEach((tempPoint, index) => {
+        points.push({
+            label: tempPoint.label,
+            x: index,
+            y: tempPoint.y
+        })
+    })
+
+
+
+    return points
+}
+
 export  {
     mapStockHistoryResponse,
     mapSearchStockResponse,
-    extractChartData
+    extractCandlestickChartData,
+    extractLinearChartData
 }

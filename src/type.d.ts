@@ -30,3 +30,9 @@ export interface StockHistoryInformation {
     lastRefreshed: string
     historyData: StockInfoItemResponse[]
 }
+
+export interface LinearChartPoint {
+    label: string
+    x: number
+    y: number
+}

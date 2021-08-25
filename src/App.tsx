@@ -31,8 +31,10 @@ function App() {
         message: 'Error!',
         description: 'Something went wrong, please try again in a bit!'
       }
+      setStockInfo({} as SearchResult)
+      setStockHistory({} as StockHistoryInformation)
+      setStockInfoLoadIndicator(false)
       notification.error(details)
-      setStockSearchIndicator(false)
     })
   }
 
@@ -75,7 +77,7 @@ function App() {
               searchStock={searchStock}
             />
           </Row>
-          {searchResults && 
+          {/* {searchResults &&  */}
             <Row>
               <ResultsComponent
                 searchResults={searchResults}
@@ -83,7 +85,7 @@ function App() {
                 selectStock={selectStock}
               />
             </Row>
-          }
+          {/* } */}
         </Col>
         {searchResults &&
           <Divider type="vertical" />

@@ -3,7 +3,8 @@ import CanvasJSReact from '../canvasjs.stock.react'
 import { Spin, Button } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { SearchResult, StockHistoryInformation } from '../type'
-import { extractChartData } from '../util/util'
+import { extractCandlestickChartData, extractLinearChartData } from '../util/util'
+import Chart from './LinearChart'
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart
 
@@ -54,14 +55,14 @@ function ChartComponent(props: {
             
             let currencySymbol = "";
             for (let i = 0; i < temp.length; i++) {
-                if (!isNaN(+temp[i])) {
-                    return currencySymbol = temp.substring(0, i)
-                }
+                if (!isNaN(+temp[i])) { return currencySymbol = temp.substring(0, i) }
             }
 
             return currencySymbol
         }
     }
+
+    const currencySymbol = getCurrencySymbol()
 
     const chartConfig = {
         title: { 
@@ -73,17 +74,17 @@ function ChartComponent(props: {
         },
         zoomEnabled: true,
         exportEnabled: true,
-        axisY: { title: "Prices", prefix: getCurrencySymbol() },
+        axisY: { title: "Prices", prefix: currencySymbol },
         axisX: { title: "Time", labelAngle: -45 },
         data: [{
             type: "candlestick",
-            dataPoints: extractChartData(stockHistory.historyData)
+            dataPoints: extractCandlestickChartData(stockHistory.historyData)
         }]
     }
 
     return (
         <>
-        {/* {stockHistory.historyData && console.log('stockHistory', stockHistory)} */}
+        {/* {stockHistory.historyData && console.log('stockHistory', extractLinearChartData(stockHistory.historyData))} */}
             {stockInfoLoadIndicator &&
                 <Spin
                 indicator={<LoadingOutlined style={{ fontSize: 56 }} spin />}
@@ -91,14 +92,28 @@ function ChartComponent(props: {
                 />
             }
             {!stockInfoLoadIndicator && stockHistory.lastRefreshed && stockHistory.historyData &&
-                <div className="chart">
-                    <CanvasJSChart
-                        options={chartConfig}
-                    /><br />
+                <>
+                    <div className="candlestick-chart">
+                        <CanvasJSChart
+                            options={chartConfig}
+                        /><br />
+                    </div>
+                    <br />
+                    <div className="linear-chart">
+                        <Chart
+                            width={10000}
+                            height={2500}
+                            data={extractLinearChartData(stockHistory.historyData)}
+                            horizontalGuides={10}
+                            precision={2}
+                            verticalGuides={10}
+                            currencySymbol={getCurrencySymbol()}
+                        />
+                    </div>
                     <p>Last refreshed: {stockHistory.lastRefreshed}</p>
                     <p>Switch interval duration:</p>
                     {getIntervalButtons()}
-                </div>
+                </>
             }
         </>
     )
