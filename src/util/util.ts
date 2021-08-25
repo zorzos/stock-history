@@ -81,7 +81,8 @@ const extractLinearChartData = (stockHistory: StockInfoItemResponse[]) => {
     stockHistory && stockHistory.length > 0 && stockHistory.forEach((item: StockInfoItemResponse) => {
         if (item.date && item.high && item.low) {
             const itemDate = new Date(item.date)
-            label = numberFormatter(itemDate.getHours()) + ":" +
+            label = itemDate.getFullYear() + "/" + (itemDate.getMonth()+1) + "/" + itemDate.getDate() + " " +
+                    numberFormatter(itemDate.getHours()) + ":" +
                     numberFormatter(itemDate.getMinutes()) + ":" +
                     numberFormatter(itemDate.getSeconds())
             x = itemDate

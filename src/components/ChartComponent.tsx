@@ -104,9 +104,9 @@ function ChartComponent(props: {
                             width={10000}
                             height={2500}
                             data={extractLinearChartData(stockHistory.historyData)}
-                            horizontalGuides={10}
+                            horizontalGuides={5}
                             precision={2}
-                            verticalGuides={10}
+                            verticalGuides={15}
                             currencySymbol={currencySymbol}
                         />
                     </div>

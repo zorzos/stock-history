@@ -13,7 +13,7 @@ const Chart = (props: {
     currencySymbol: string | undefined
 }) => {
     const { data, width, height, horizontalGuides, verticalGuides, precision, currencySymbol } = props
-    const FONT_SIZE = 120;
+    const FONT_SIZE = 100;
     const maximumXFromData = Math.max(...data.map(e => e.x));
     const maximumYFromData = Math.max(...data.map(e => e.y));
 
@@ -135,7 +135,7 @@ const Chart = (props: {
                 {getLabelsXAxis()}
                 <YAxis />
                 {getLabelsYAxis()}
-                {verticalGuides && getVerticalGuides()}
+                {getVerticalGuides()}
                 {getHorizontalGuides()}
 
                 <polyline

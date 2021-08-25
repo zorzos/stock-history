@@ -16,7 +16,7 @@ const constructStockHistoryURL = (symbol: string, interval: string) => {
         .concat("function=TIME_SERIES_INTRADAY")
         .concat(`&symbol=${symbol}`)
         .concat(`&interval=${interval}`)
-        .concat("&outputSize=full")
+        .concat("&outputsize=compact")
         .concat(`&apikey=${apiKey}`)
 }
 
