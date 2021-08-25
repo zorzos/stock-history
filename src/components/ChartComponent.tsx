@@ -84,7 +84,6 @@ function ChartComponent(props: {
 
     return (
         <>
-        {/* {stockHistory.historyData && console.log('stockHistory', extractLinearChartData(stockHistory.historyData))} */}
             {stockInfoLoadIndicator &&
                 <Spin
                 indicator={<LoadingOutlined style={{ fontSize: 56 }} spin />}
@@ -102,7 +101,7 @@ function ChartComponent(props: {
                     <div className="linear-chart">
                         <Chart
                             width={10000}
-                            height={2500}
+                            height={3200}
                             data={extractLinearChartData(stockHistory.historyData)}
                             horizontalGuides={5}
                             precision={2}

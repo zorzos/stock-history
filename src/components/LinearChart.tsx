@@ -29,13 +29,8 @@ const Chart = (props: {
         return `${x},${y}`
     }).join(" ")
 
-    const Axis = (props: {points: string}) => (
-        <polyline fill="none" stroke="blue" strokeWidth=".5" points={points} />
-    )
-
-    const XAxis = () => ( <Axis points={`${padding},${height - padding} ${width - padding},${height - padding}`} /> )
-
-    const YAxis = () => ( <Axis points={`${padding},${padding} ${padding},${height - padding}`} /> )
+    const getXAxis = () => { return <polyline fill="none" stroke="black" strokeWidth="5" points={'315,2950 9700,2950'} />}
+    const getYAxis = () => { return <polyline fill="none" stroke="black" strokeWidth="5" points={'315,2950 315,315'} />}
 
     const getVerticalGuides = () => {
         const guideCount = verticalGuides || data.length - 1;
@@ -80,7 +75,7 @@ const Chart = (props: {
     }
 
     const getLabelsXAxis = () => {
-        const y = height - padding + FONT_SIZE * 2;
+        const y = height - padding + FONT_SIZE * 2 + (800);
         return data.map((element, index) => {
             const x = (element.x / maximumXFromData) * chartWidth + padding - FONT_SIZE / 2;
             return (
@@ -107,7 +102,7 @@ const Chart = (props: {
     const getLabelsYAxis = () => {
         const PARTS = horizontalGuides
         return new Array(PARTS + 1).fill(0).map((_, index) => {
-            const x = FONT_SIZE
+            const x = FONT_SIZE - 250
             const ratio = index / horizontalGuides
             const yCoordinate = chartHeight - chartHeight * ratio + padding + FONT_SIZE / 2;
             return (
@@ -130,10 +125,10 @@ const Chart = (props: {
     return (
         <>
             <h1 style={{textAlign: 'center', marginBottom: '-1em', color: "black"}}>Average Stock Price</h1>
-            <svg viewBox={`0 0 ${width} ${height}`}>
-                <XAxis />
+            <svg viewBox={`-150 0 ${width} 3900`}>
+                {getXAxis()}
                 {getLabelsXAxis()}
-                <YAxis />
+                {getYAxis()}
                 {getLabelsYAxis()}
                 {getVerticalGuides()}
                 {getHorizontalGuides()}

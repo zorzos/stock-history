@@ -94,7 +94,7 @@ const extractLinearChartData = (stockHistory: StockInfoItemResponse[]) => {
     tempPoints.forEach((tempPoint, index) => {
         points.push({
             label: tempPoint.label,
-            x: index,
+            x: index+1,
             y: tempPoint.y
         })
     })
