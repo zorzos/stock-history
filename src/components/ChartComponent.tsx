@@ -107,7 +107,7 @@ function ChartComponent(props: {
                             horizontalGuides={10}
                             precision={2}
                             verticalGuides={10}
-                            currencySymbol={getCurrencySymbol()}
+                            currencySymbol={currencySymbol}
                         />
                     </div>
                     <p>Last refreshed: {stockHistory.lastRefreshed}</p>

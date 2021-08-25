@@ -85,7 +85,7 @@ const extractLinearChartData = (stockHistory: StockInfoItemResponse[]) => {
                     numberFormatter(itemDate.getMinutes()) + ":" +
                     numberFormatter(itemDate.getSeconds())
             x = itemDate
-            y = item.high - item.low
+            y = (item.high + item.low) / 2
             tempPoints.push({label, x, y})
         }
     })
