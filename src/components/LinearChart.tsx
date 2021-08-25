@@ -1,7 +1,7 @@
 import React from "react"
 import { LinearChartPoint } from "../type";
 
-const STROKE = 1;
+const STROKE = 15;
 
 const Chart = (props: {
     data: LinearChartPoint[],
