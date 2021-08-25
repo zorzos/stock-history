@@ -37,7 +37,7 @@ function SearchForm(props: {
                 Submit
                 </Button>
             </Form.Item>
-            </Form>
+        </Form>
     )
 }
 

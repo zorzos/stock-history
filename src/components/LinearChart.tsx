@@ -133,12 +133,7 @@ const Chart = (props: {
                 {getVerticalGuides()}
                 {getHorizontalGuides()}
 
-                <polyline
-                    fill="none"
-                    stroke="blue"
-                    strokeWidth={STROKE}
-                    points={points}
-                />
+                <polyline fill="none" stroke="blue" strokeWidth={STROKE} points={points} />
             </svg>
         </>
     )
