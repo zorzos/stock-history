@@ -13,7 +13,7 @@ beforeEach(() => {
             stockInfoLoadIndicator={false}
             stockHistory={properHistoricalData}
             stockInformation={googleSearchResult}
-            selectStock={() => {console.log('Another stock or interval has been selected')}}
+            selectStock={() => {}}
         />
     )
 })
