@@ -19,4 +19,7 @@ Afterwards, to run the application simply run:
 ```
 npm start
 ```
-
+Also tests can be run by another command:
+```
+npm test
+```
