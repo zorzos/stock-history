@@ -10,7 +10,7 @@ beforeEach(() => {
     render(
         <ResultList
             results={properResults}
-            selectStock={() => console.log("A stock's 'View' button was clicked - using mock data from src/test/mockResponses.tsx")}
+            selectStock={() => {}}
         />
     )
 })
