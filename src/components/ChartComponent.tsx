@@ -64,11 +64,13 @@ function ChartComponent(props: {
 
     const currencySymbol = getCurrencySymbol()
 
+    const getFormattedInterval = () => {
+        return activeInterval.substring(0, activeInterval.lastIndexOf('min')) + " min"
+    }
+
     const chartConfig = {
         title: { 
-            text: `
-                ${stockInformation.symbol} Stock History (${stockInformation.name}) in ${stockInformation.currency}
-            `,
+            text: `${stockInformation.symbol} Stock History (${stockInformation.name}) in ${stockInformation.currency} (Interval: ${getFormattedInterval()})`,
             fontFamily: 'segoe ui',
             fontWeight: 'bold'
         },
